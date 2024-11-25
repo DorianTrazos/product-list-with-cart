@@ -44,6 +44,11 @@ body {
   padding-inline: 24px;
 }
 
+.filter:hover:not(.filter-active) {
+  background-color: var(--brown);
+  color: var(--white);
+}
+
 .main {
   padding: 26px 24px;
 }

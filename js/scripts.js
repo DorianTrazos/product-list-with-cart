@@ -70,6 +70,8 @@ const updateCartInDOM = () => {
     fragment.append(newCartProduct);
   });
 
+  console.log(cartContent);
+
   cartProductsElement.textContent = '';
   cartProductsElement.append(fragment);
   updateProductsQuantityInDOM();
@@ -81,7 +83,7 @@ const updateProductQuantityInDOM = (quantity, element) => {
 };
 
 const addProductToCart = (name, price) => {
-  cartContent.push({ name, price, quantity: 1 });
+  cartContent.push({ name: name, price: price, quantity: 1 });
   updateCartInDOM();
 };
 
