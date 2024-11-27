@@ -15,9 +15,7 @@ const updateTotalOrderInDOM = () => {
 
 const updateProductsQuantityInDOM = () => {
   const totalQuantity = cartContent.reduce((acc, product) => product.quantity + acc, 0);
-
   cartQuantityElement.textContent = totalQuantity;
-
   updateTotalOrderInDOM();
 };
 
@@ -82,28 +80,16 @@ const updateCartInDOM = () => {
   updateProductsQuantityInDOM();
 };
 
-const updateProductQuantityInDOM = (quantity, element) => {
-  element.children[1].textContent = quantity;
-  updateCartInDOM();
-};
-
 const addProductToCart = (name, price) => {
   cartContent.push({ name: name, price: price, quantity: 1 });
   updateCartInDOM();
 };
 
 const incrementProductQuantity = (name, element) => {
-  let newQuantity;
-  cartContent = cartContent.map(product => {
-    if (product.name === name) {
-      product.quantity++;
-      newQuantity = product.quantity;
-    }
-
-    return product;
-  });
-
-  updateProductQuantityInDOM(newQuantity, element);
+  const productSelected = cartContent.find(product => product.name === name);
+  productSelected.quantity++;
+  element.textContent = productSelected.quantity;
+  updateCartInDOM();
 };
 
 const setRemoveProductEffect = element => {
@@ -125,28 +111,16 @@ const removeProductFromCart = (name, element) => {
 };
 
 const decrementProductQuantity = (name, element) => {
-  const product = cartContent.find(product => product.name === name);
+  const productSelected = cartContent.find(product => product.name === name);
 
-  if (product.quantity === 1) {
+  if (productSelected.quantity === 1) {
     removeProductFromCart(name, element);
   } else {
-    product.quantity--;
-    updateProductQuantityInDOM(product.quantity, element);
+    productSelected.quantity--;
+    element.textContent = productSelected.quantity;
   }
 
   updateCartInDOM();
-};
-
-const setFilters = event => {
-  const filter = event.target.dataset.filter;
-
-  if (!filter) return;
-
-  for (const filter of filtersElement.children) {
-    filter.classList.remove('filter-active');
-  }
-
-  event.target.classList.add('filter-active');
 };
 
 const setAddProductEffect = element => {
@@ -170,10 +144,23 @@ const handleGalleryClick = event => {
   const name = event.target.parentElement.dataset.name;
 
   if (type === 'increment') {
-    incrementProductQuantity(name, event.target.parentElement);
+    incrementProductQuantity(name, event.target.previousElementSibling);
   } else if (type === 'decrement') {
-    decrementProductQuantity(name, event.target.parentElement);
+    decrementProductQuantity(name, event.target.nextElementSibling);
   }
 };
 
+const setFilters = event => {
+  const filter = event.target.dataset.filter;
+
+  if (!filter) return;
+
+  for (const filter of filtersElement.children) {
+    filter.classList.remove('filter-active');
+  }
+
+  event.target.classList.add('filter-active');
+};
+
+filtersElement.addEventListener('click', setFilters);
 galleryElement.addEventListener('click', handleGalleryClick);

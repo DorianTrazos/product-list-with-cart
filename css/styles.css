@@ -122,10 +122,12 @@ body {
   position: relative;
   margin-bottom: 38px;
   border-radius: 8px;
+  outline: 2px solid transparent;
+  transition: outline-color 0.3s;
 }
 
 .product-image-container-selected {
-  outline: 2px solid var(--red);
+  outline-color: var(--red);
 }
 
 .product-image {
