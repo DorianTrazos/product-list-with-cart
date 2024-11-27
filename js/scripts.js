@@ -63,7 +63,12 @@ const updateCartInDOM = () => {
 
     newCartProductIconRemove.addEventListener('click', () => removeProductFromCart(product.name));
 
-    newCartProductInfo.append(newCartProductQuantity, newCartProductPriceSingle, newCartProductPriceTotal, newCartProductIconRemove);
+    newCartProductInfo.append(
+      newCartProductQuantity,
+      newCartProductPriceSingle,
+      newCartProductPriceTotal,
+      newCartProductIconRemove
+    );
 
     newCartProduct.append(newCartProductInfo);
 
@@ -121,6 +126,7 @@ const removeProductFromCart = (name, element) => {
 
 const decrementProductQuantity = (name, element) => {
   const product = cartContent.find(product => product.name === name);
+
   if (product.quantity === 1) {
     removeProductFromCart(name, element);
   } else {
@@ -170,5 +176,4 @@ const handleGalleryClick = event => {
   }
 };
 
-filtersElement.addEventListener('click', setFilters);
 galleryElement.addEventListener('click', handleGalleryClick);
