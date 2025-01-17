@@ -1,7 +1,7 @@
 # Título del proyecto
 
 <p>
-    <img src="" alt="Imagen del proyecto">
+    <img src="https://raw.githubusercontent.com/DorianTrazos/product-list-with-cart/refs/heads/main/design/active-states.jpg" alt="Imagen del proyecto">
 </p>
 
 ## Vista en vivo
